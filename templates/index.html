@@ -1,10 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title_страницы</title>
+    <style>
+        .h2-text {
+        color: red
+        }
+        #h1-text{
+        color: orange
+        }
+        .h2-text.h6-text {
+        color: green;
+        font-size: 15px;
+        }
+        div.python > a {
+        color: green
+        }
+        input[type="email"] {
+        background-color: purple
+        }
+
+
+        button:hover {
+        color: orange
+        }
+
+        ul > li:nth-child(2) {
+        color: purple
+        }
+    </style>
 </head>
 <body>
-$END$
+#div нужен по сути для объединения элментов в группу
+#возьми элемент li, второй по счету и покрась его
+#красим текст кнопки при наведении мышкой
+<div class="python">
+    <h1 id="h1-text">Самый большой заголовок</h1>
+    <h2 class="h2-text">Заголовок поменьше</h2>
+    <h6 class="h2-text h6-text">Самый маленький текст</h6>
+    <p>Какой-то текст <span style="color: green">на странице.</span>  Тут может быть любое описание.</p>
+    <a href="здесь должна быть ссылка на ресурс" target="_blank">Python</a>
+    <img alt="browsers.png - если картинка не подгрузилась" src="https://jitsi.contentai.ru/images/google-play-badge.png"
+         style="with: 250px">
+    <ul>
+        <li>1-й элемент списка</li>
+        <li>2-й элемент списка</li>
+        <li>3-й элемент списка</li>
+    </ul>
+    <ol>
+        <li>1-й нумерованный элемент списка</li>
+        <li>2-й нумерованный элемент списка</li>
+        <li>3-й нумерованный элемент списка</li>
+    </ol>
+    #form проверяет валидность данных в инпутах
+    <form action="/редирект на эту страницу по кнопке" method="POST">
+        <input type="text" placeholder="Введите текст">
+        <input type="email" placeholder="Введите e-mail">
+        <input type="password" placeholder="Введите password">
+        <textarea placeholder="Для ввода какого-то большого длинного текста"></textarea>
+        <button type="submit">Кнопка</button>
+    </form>
+    <table>
+        <thead>
+        <tr>
+            <td>Заголовок с текстом 1</td>
+            <td>Заголовок с текстом 2</td>
+            <td>Заголовок с текстом 3</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Ячейка таблицы с текстом 1</td>
+            <td>Ячейка таблицы с текстом 2</td>
+            <td>Ячейка таблицы с текстом 3</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <a href="какая-то другая ссылка" target="_blank">Название другой ссылки</a>
+</div>
+
+
 </body>
 </html>
