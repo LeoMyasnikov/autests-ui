@@ -23,7 +23,7 @@ with sync_playwright() as playwright:
     registration_button = page.get_by_test_id('registration-page-registration-button')
     registration_button.click()
 
-    # сохраняем состояние cookies, local storage. нужно для автоматической авторизации
+    # сохраняем состояние браузера: cookies, local storage. нужно для автоматической авторизации
     context.storage_state(path='browser-stat.json')
 
 with sync_playwright() as playwright:
