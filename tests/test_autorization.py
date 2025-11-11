@@ -3,12 +3,8 @@ import pytest
 
 @pytest.mark.regression
 @pytest.mark.autorization
-def test_wrong_autorization():
-    with sync_playwright() as playwright:
-        # запускаем браузер
-        browser = playwright.chromium.launch(headless=False)
-        # переменная для открытия страницы. Playwright может работать с несколькими страницами
-        page = browser.new_page()
+def test_wrong_autorization(chromium_main):
+        page = chromium_main.new_page()
         # открываем нужную страницу
         page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login")
 

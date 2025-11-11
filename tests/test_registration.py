@@ -3,15 +3,8 @@ import pytest
 
 @pytest.mark.regression
 @pytest.mark.registration
-def test_successful_registration():
-    with sync_playwright() as playwright:
-        # запускаем браузер
-        browser = playwright.chromium.launch(headless=False)
-
-        # используется для сохранения данных в localStorage, локаль, размер экрана и прочее
-        context = browser.new_context()
-
-        page = context.new_page()
+def test_successful_registration(chromium_main):
+        page = chromium_main.new_page()
         page.goto('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration')
 
         email_input = page.get_by_test_id('registration-form-email-input').locator('input')
@@ -26,14 +19,5 @@ def test_successful_registration():
         registration_button = page.get_by_test_id('registration-page-registration-button')
         registration_button.click()
 
-        # сохраняем состояние браузера: cookies, local storage. нужно для автоматической авторизации
-        context.storage_state(path='browser-stat.json')
-
-    with sync_playwright() as playwright:
-        # запускаем браузер
-        browser = playwright.chromium.launch(headless=False)
-
-        # используем параметры авторизации из json файла авторизации
-        context = browser.new_context(storage_state='browser-stat.json')
-        page = context.new_page()
-        page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/dashboard")
+        dashboard_title = page.locator('//h6[@data-testid="dashboard-toolbar-title-text"]')
+        expect(dashboard_title).to_be_visible()
