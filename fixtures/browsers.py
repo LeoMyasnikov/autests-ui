@@ -6,7 +6,8 @@ def chromium_main():
     with sync_playwright() as playwright:
         # Подготовка — данный код будет выполнен до начала автотеста
         browser = playwright.chromium.launch(headless=False)
-        yield browser # Здесь возвращаем данные для теста
+        page = browser.new_page()
+        yield page # Здесь возвращаем данные для теста
 
 
 @pytest.fixture(scope="session")

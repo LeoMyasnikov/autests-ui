@@ -1,32 +1,24 @@
-from playwright.sync_api import sync_playwright, expect
+from playwright.sync_api import sync_playwright, expect, Page
+from pages.login_page import LoginPage
 import pytest
 
 @pytest.mark.regression
 @pytest.mark.autorization
-def test_wrong_autorization(chromium_main):
-        page = chromium_main.new_page()
-        # открываем нужную страницу
-        page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login")
+@pytest.mark.parametrize("email, password", [
+    ("user.name@gmail.com", "password"),
+    ("user.name@gmail.com", "  "),
+    ("  ", "password")
+])
+def test_wrong_email_or_password_authorization(email, password, login_page: LoginPage):
 
-        # Находим локатор. В переменную email_input сохраняется объект locator
-        email_input = page.locator('//div[@data-testid="login-form-email-input"]//div//input')
-        # указываем локатор через data_testid. playwright нативно поддерживает этот аттрибут
-        email_input = page.get_by_test_id("login-form-email-input").locator('input')
-        # У локатора есть метод fill.Ему мы перадаем значение и playwright это значение впишет в данный input.
-        # вводим значение в поле e-mail. Через метод fill
-        email_input.fill('user.name@gmail.com')
+        # создаем экземпляр класса LoginPage
+        # метод visit c base_page, который работает для всех страниц. открывает собсвенно страницу
+        login_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login")
+        # методы fill_login_form, click, check_visible_wrong_element_alert с login_page
+        login_page.fill_login_form(email=email, password=password)
+        login_page.click_login_button()
+        login_page.check_visible_wrong_element_alert()
 
-        password_input = page.locator('//div[@data-testid="login-form-password-input"]//div//input')
-        password_input.fill('Password')
 
-        login_button = page.locator('//button[@data-testid="login-page-login-button"]')
-        # указываем локатор через data_testid. playwright нативно поддерживает этот аттрибут
-        login_button = page.get_by_test_id('login-page-login-button')
-        login_button.click()
 
-        wrong_element_alert = page.locator('//div[@data-testid="login-page-wrong-email-or-password-alert"]')
-        # мы используем expect - функция, которая позволяет использовать ожидания
-        # внутри передаем какой элемент нужно ожидать (какой локатор) и что мы хоти видеть. В данном случае, чтобы был виден
-        expect(wrong_element_alert).to_be_visible()
-        # проверяем, что найденный элемент имеет текст такой-то
-        expect(wrong_element_alert).to_have_text('Wrong email or password')
+
